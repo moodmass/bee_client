@@ -9,5 +9,28 @@
     <color name="blue">#2196F3</color>
     <color name="grey">#607D8B</color>
     <color name="orange">#F57C00</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="nav_active">#26d3f2</color>
+    <color name="nav_gray">#959595</color>
+    <color name="nav_background">#FFFFFF</color>
+    <color name="view_pager_background">#EEEEEE</color>
+
+
+    <!-- 标题栏按钮背景颜色 -->
+    <drawable name="button_backward_pressed">#FF3030</drawable>
+    <drawable name="button_backward_normal">#FFF</drawable>
+
+
+    <color name="time_nav">#03e59b</color>
+
+    <color name="login_button">#2196F3</color>
+    <color name="login_button_press">#51adf6</color>
+
+    <color name="login_button_successfully">#8bc34a</color>
+    <color name="login_button_successfully_press">#a4d070</color>
+
+    <color name="logout_button">#FF4081</color>
+    <color name="logout_button_press">#ff73a3</color>
 
 </resources>

@@ -1,0 +1,84 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_titlebar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentTop="true"
+    android:background="#fff">
+
+    <LinearLayout
+        android:id="@+id/data_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="10dp">
+
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            android:id="@+id/button_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:materialIcon="basket_fill"
+            app:materialIconColor="#fec005"
+            android:paddingRight="10dp"
+            app:materialIconSize="24dp" />
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            android:id="@+id/button_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:materialIcon="share_variant"
+            app:materialIconColor="#fec005"
+            app:materialIconSize="24dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/store_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:layout_toLeftOf="@id/data_buttons">
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/store_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mrl_rippleAlpha="0.1"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="false">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/button_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    app:materialIcon="store"
+                    app:materialIconColor="#F60"
+                    app:materialIconSize="24dp" />
+
+                <TextView
+                    android:id="@+id/store_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="left|center"
+                    android:maxLines="1"
+                    android:text="所有店铺"
+                    android:textSize="18sp"
+                    android:tint="#444" />
+            </LinearLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </LinearLayout>
+</RelativeLayout>
