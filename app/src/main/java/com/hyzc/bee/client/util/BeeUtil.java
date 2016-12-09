@@ -125,12 +125,11 @@ public class BeeUtil {
     public static void init(Context context) {
 
         typefaceLatoRegular = Typeface.createFromAsset(
-                context.getAssets(), "fonts/Ping-Fang.ttf");
+                context.getAssets(), "fonts/Lato-Regular.ttf");
         typefaceLatoHairline = Typeface.createFromAsset(
                 context.getAssets(), "fonts/Lato-Hairline.ttf");
         typefaceLatoLight = Typeface.createFromAsset(
                 context.getAssets(), "fonts/LatoLatin-Light.ttf");
-
 
         relativeSizeSpan = new RelativeSizeSpan(2f);
         redForegroundSpan = new ForegroundColorSpan(Color.parseColor("#ff5252"));
@@ -618,7 +617,7 @@ public class BeeUtil {
             lastToast = text;
         }
         SuperToast superToast = new SuperToast(context);
-        superToast.setAnimations(SuperToast.Animations.FLYIN);
+        superToast.setAnimations(SuperToast.Animations.POPUP);
         superToast.setDuration(SuperToast.Duration.VERY_SHORT);
         superToast.setTextColor(Color.parseColor("#ffffff"));
         superToast.setTextSize(SuperToast.TextSize.SMALL);

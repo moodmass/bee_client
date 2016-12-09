@@ -4,25 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
-import android.widget.LinearLayout;
 
-import com.hyzc.bee.bottomnavigationbar.BottomNavigationBar;
-import com.hyzc.bee.bottomnavigationbar.BottomNavigationItem;
+import com.hy.bee.bottomnavigation.BottomNavigationBar;
+import com.hy.bee.bottomnavigation.BottomNavigationItem;
 import com.hyzc.bee.client.layout.data.DataFragment;
 import com.hyzc.bee.client.layout.personal.PersonalFragment;
 import com.hyzc.bee.client.util.BeeUtil;
 
-import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
-
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationBar bottomNavigationBar;
     private Context mContext;
@@ -44,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void addBottomItems() {
-        bottomNavigationBar.setAutoHideEnabled(false);
+        bottomNavigationBar.setAutoHideEnabled(true);
         bottomNavigationBar.setBarBackgroundColor(R.color.nav_background);//背景颜色
         bottomNavigationBar.setInActiveColor(R.color.nav_gray);//未选中时的颜色
         bottomNavigationBar.setActiveColor(R.color.nav_active);//选中时的颜色
         bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "数据").setActiveColorResource(R.color.orange))
-                .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "分析").setActiveColorResource(R.color.teal))
-                .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "用户").setActiveColorResource(R.color.blue))
+                .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "数据").setActiveColorResource(R.color.theme_color))
+                .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "分析").setActiveColorResource(R.color.theme_color))
+                .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "用户").setActiveColorResource(R.color.theme_color))
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
@@ -90,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 if (dataFragment==null){
                     dataFragment=new DataFragment();
                     fragmentTransaction.add(R.id.bottom_nav_content,dataFragment);
-
                 }else {
                     fragmentTransaction.show(dataFragment);
                 }

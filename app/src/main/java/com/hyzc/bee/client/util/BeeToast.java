@@ -6,7 +6,7 @@ import com.github.johnpersano.supertoasts.SuperToast;
 import com.hyzc.bee.client.layout.BeeApplication;
 
 /**
- * Created by Weiping on 2015/11/30.
+ *
  */
 public class BeeToast {
     private static BeeToast ourInstance = new BeeToast();

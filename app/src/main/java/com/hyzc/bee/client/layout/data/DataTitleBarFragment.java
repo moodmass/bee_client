@@ -25,7 +25,7 @@ public class DataTitleBarFragment extends Fragment {
     ImageButton buttonStore;
     @BindView(R.id.store_name)
     TextView storeName;
-    @BindView(R.id.store_area)
+    @BindView(R.id.store_layout)
     LinearLayout storeArea;
 
 
@@ -70,7 +70,7 @@ public class DataTitleBarFragment extends Fragment {
         mListener = null;
     }
 
-    @OnClick({R.id.button_toggle, R.id.button_share, R.id.store_area})
+    @OnClick({R.id.button_toggle, R.id.button_share, R.id.store_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_toggle:
@@ -79,7 +79,7 @@ public class DataTitleBarFragment extends Fragment {
             case R.id.button_share:
                 Toast.makeText(getActivity(),"button_share",Toast.LENGTH_LONG).show();
                 break;
-            case R.id.store_area:
+            case R.id.store_layout:
                 Toast.makeText(getActivity(),"store_area",Toast.LENGTH_LONG).show();
                 break;
         }
