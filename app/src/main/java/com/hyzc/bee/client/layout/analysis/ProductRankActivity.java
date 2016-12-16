@@ -15,9 +15,10 @@ import com.chanven.lib.cptr.PtrFrameLayout;
 import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.hyzc.bee.client.R;
-import com.hyzc.bee.client.util.BeeToast;
 import com.hyzc.bee.client.util.BeeUtil;
 import com.hyzc.bee.client.util.DateUtil;
+
+import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProductRankActivity extends AppCompatActivity {
 
@@ -38,22 +40,28 @@ public class ProductRankActivity extends AppCompatActivity {
     //支持下拉刷新的ViewGroup
     @BindView(R.id.rotate_header_list_view_frame)
     PtrClassicFrameLayout mPtrFrame;
-    List<HashMap<String, Object>> myList=new ArrayList<>();
+    List<HashMap<String, Object>> myList = new ArrayList<>();
+    @BindView(R.id.go_back)
+    MaterialIconView goBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_rank);
         ButterKnife.bind(this);
-        myList =generateData();
+        myList = generateData();
         listProductRank.setLayoutManager(new LinearLayoutManager(this));
-        RvAdapter adapter = new RvAdapter(this, myList);
-        mAdapter= new RecyclerAdapterWithHF(adapter);
+        ProductRankAdapter adapter = new ProductRankAdapter(this, myList);
+        mAdapter = new RecyclerAdapterWithHF(adapter);
         listProductRank.setAdapter(mAdapter);
 
         mPtrFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mPtrFrame.autoRefresh();
+               // mPtrFrame.autoRefresh();
+                mAdapter.notifyDataSetChanged();
+                mPtrFrame.setLoadMoreEnable(true);
+                BeeUtil.showToast(ProductRankActivity.this, getResources().getString(R.string.product_last_update_time) + DateUtil.getCurrentTime());
             }
         }, 100);
 
@@ -62,14 +70,14 @@ public class ProductRankActivity extends AppCompatActivity {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 myList.clear();
-                myList =generateData();
+                myList = generateData();
                 //模拟联网 延迟更新列表
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         mAdapter.notifyDataSetChanged();
                         mPtrFrame.refreshComplete();
                         mPtrFrame.setLoadMoreEnable(true);
-                        BeeUtil.showToast(ProductRankActivity.this,getResources().getString( R.string.product_last_update_time)+DateUtil.getCurrentTime());
+                        BeeUtil.showToast(ProductRankActivity.this, getResources().getString(R.string.product_last_update_time) + DateUtil.getCurrentTime());
                     }
                 }, 1000);
 
@@ -99,6 +107,7 @@ public class ProductRankActivity extends AppCompatActivity {
                                        int pos, long id) {
                 String[] rankTypes = getResources().getStringArray(R.array.rank_types);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Another interface callback
@@ -108,7 +117,7 @@ public class ProductRankActivity extends AppCompatActivity {
     }
 
 
-    private List<HashMap<String, Object>>  generateData(){
+    private List<HashMap<String, Object>> generateData() {
         //生成动态数组，并且转载数据
         for (int i = 0; i < 15; i++) {
             myList.add(combimeSingle(i));
@@ -116,7 +125,7 @@ public class ProductRankActivity extends AppCompatActivity {
         return myList;
     }
 
-    private static HashMap<String, Object> combimeSingle(int rank){
+    private static HashMap<String, Object> combimeSingle(int rank) {
         DecimalFormat df = new DecimalFormat(".##");
         double d = 1252.2563;
         String st = df.format(d);
@@ -128,4 +137,8 @@ public class ProductRankActivity extends AppCompatActivity {
         return map;
     }
 
+    @OnClick(R.id.go_back)
+    public void onClick() {
+        finish();
+    }
 }

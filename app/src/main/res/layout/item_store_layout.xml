@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:padding="@dimen/space_small"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/store_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_xxlarge"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/text_color_gray_9"
+        android:background="@drawable/store_bg_unselect"
+        android:gravity="center"/>
+</LinearLayout>

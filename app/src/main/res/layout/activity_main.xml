@@ -21,6 +21,82 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation_bar"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layout_titlebar"
+            android:background="@drawable/background_with_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/head_height"
+            android:layout_alignParentTop="true">
 
+            <LinearLayout
+                android:id="@+id/data_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingRight="10dp">
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/button_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    app:materialIcon="basket_fill"
+                    app:materialIconColor="@color/head_icon_color"
+                    android:paddingRight="10dp"
+                    app:materialIconSize="24dp" />
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/button_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    app:materialIcon="share_variant"
+                    app:materialIconColor="@color/head_icon_color"
+                    app:materialIconSize="24dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/data_buttons">
+                <LinearLayout
+                    android:id="@+id/store_layout"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/button_store"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="center"
+                        app:materialIcon="store"
+                        app:materialIconColor="@color/head_icon_color"
+                        app:materialIconSize="24dp" />
+                    <TextView
+                        android:id="@+id/store_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:paddingLeft="5dp"
+                        android:gravity="left|center"
+                        android:maxLines="1"
+                        android:text="所有店铺"
+                        android:textSize="18sp"
+                        android:tint="@color/head_text_color" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+ </LinearLayout>
 </RelativeLayout>

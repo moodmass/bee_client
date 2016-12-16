@@ -9,4 +9,12 @@
     <string name="product_sales_rank_text">产品销售排行</string>
 
     <string name="product_last_update_time">数据统计截止到：</string>
+    <string name="chose_three_product">您最多只能选择三个产品进行对比 ！</string>
+    <string name="label_store">店铺</string>
+    <string name="label_device">设备</string>
+    <string name="sale_record_text">销售记录</string>
+    <string name="my_employee">我的管理员</string>
+    <string name="my_device">我的设备</string>
+    <string name="my_store">我的店铺</string>
+    <string name="new_device">添加新的设备</string>
 </resources>

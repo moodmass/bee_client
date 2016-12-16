@@ -1,20 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hyzc.bee.client.layout.store.StoreSelectActivity">
+    tools:context=".layout.store.StoreSelectActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_large"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" >
+        <Button
+            android:id="@+id/select_btn"
+            android:text="确定"
+            android:layout_marginRight="@dimen/space_normal"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:layout_marginBottom="@dimen/space_small"
+            android:padding="@dimen/space_normal"
+            android:textSize="@dimen/btn_text_size"
+            android:textColor="@color/btn_text_color"
+            android:background="@drawable/btn_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/head_height">
@@ -22,44 +42,83 @@
                 android:id="@+id/toolbar"
                 style="@style/Toolbar">
             </android.support.v7.widget.Toolbar>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="48dp">
-                <net.steamcrafted.materialiconlib.MaterialIconView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="36dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    app:materialIcon="arrow_left"
-                    app:materialIconColor="@color/head_icon_color"
-                    app:materialIconSize="24dp"
-                    android:scaleType="center"
-                    android:background="@color/transparent"
-                    android:id="@+id/back"
-                    />
-                <TextView
-                    android:id="@+id/store_select_title"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:gravity="center"
-                    android:text="@string/store_select"
-                    android:textColor="@color/head_text_color"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
+                    android:layout_height="48dp">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        app:materialIcon="arrow_left"
+                        app:materialIconColor="@color/head_icon_color"
+                        app:materialIconSize="24dp"
+                        android:scaleType="center"
+                        android:background="@color/transparent"
+                        android:id="@+id/go_back"
+                        />
+                    <TextView
+                        android:id="@+id/store_select_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:gravity="center"
+                        android:text="@string/store_select"
+                        android:textColor="@color/head_text_color"
+                        android:textSize="@dimen/toolbar_title" />
+                </LinearLayout>
+            </RelativeLayout>
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/space_normal"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:layout_marginRight="@dimen/space_normal"
+            android:layout_marginTop="@dimen/space_normal"
             android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="店铺选择" />
-        </LinearLayout>
+                android:orientation="vertical">
+                <TextView
+                    android:text="@string/label_store"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/store_select_text"
+                    android:layout_marginBottom="@dimen/space_small"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/store_rv"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/device_layout"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/space_normal"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:text="@string/label_device"
+                    android:textSize="@dimen/store_select_text"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/space_small"
+                    android:layout_height="match_parent" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/device_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
 
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

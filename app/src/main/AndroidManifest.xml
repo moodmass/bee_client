@@ -20,7 +20,9 @@
         <activity
             android:name=".layout.store.StoreSelectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".layout.analysis.ProductRankActivity"></activity>
+        <activity android:name=".layout.analysis.ProductRankActivity" />
+        <activity android:name=".layout.analysis.ProductSelectActivity" />
+        <activity android:name=".layout.record.SaleRecordActivity"></activity>
     </application>
 
 </manifest>

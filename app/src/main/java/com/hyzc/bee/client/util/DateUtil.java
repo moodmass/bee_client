@@ -15,6 +15,7 @@ import java.util.Map;
 public class DateUtil {
     private static String ymdhms = "yyyy-MM-dd HH:mm:ss";
     private static String ymd = "yyyy-MM-dd";
+
     public static SimpleDateFormat ymdSDF = new SimpleDateFormat(ymd);
     private static String year = "yyyy";
     private static String month = "MM";
@@ -34,6 +35,7 @@ public class DateUtil {
 
     public static long DATEMM = 86400L;
 
+
     /**
      * 获得当前时间
      * 格式：2014-12-02 10:38:53
@@ -42,6 +44,16 @@ public class DateUtil {
      */
     public static String getCurrentTime() {
         return yyyyMMddHHmmss.format(new Date());
+    }
+
+    /**
+     * 获得日期时间格式化
+     * 格式：2014-12-02 10:38:53
+     *
+     * @return String
+     */
+    public static String getDateTimeStr(Date date) {
+        return yyyyMMddHHmmss.format(date);
     }
 
     /**

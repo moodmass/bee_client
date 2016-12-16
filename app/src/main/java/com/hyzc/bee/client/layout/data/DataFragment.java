@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -36,54 +35,39 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
-import com.hyzc.bee.client.MainActivity;
 import com.hyzc.bee.client.R;
-import com.hyzc.bee.client.layout.store.StoreSelectActivity;
+import com.hyzc.bee.client.layout.record.SaleRecordActivity;
 import com.hyzc.bee.client.util.BeeUtil;
 
-import net.steamcrafted.materialiconlib.MaterialIconView;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_FIRST_USER;
+
 
 /**
  * Created by Administrator on 2016/11/29.
  */
 public class DataFragment extends Fragment {
+    @BindView(R.id.view_record)
+    TextView viewRecord;
     private View dataFrag;
 
     private List<String> dataList = new ArrayList<>();
+
     private Context context;
-
-    @BindView(R.id.data_buttons)
-    LinearLayout dataButtons;
-    @BindView(R.id.button_store)
-    MaterialIconView buttonStore;
-    @BindView(R.id.store_name)
-    TextView storeName;
-
-    @BindView(R.id.store_layout)
-    LinearLayout storeLayout;
-
-
-    @BindView(R.id.button_share)
-    MaterialIconView shareBtn;
-    @BindView(R.id.button_toggle)
-    MaterialIconView toggleBtn;
 
     @BindView(R.id.sale_amount)
     TextView saleAmount;
 
-
     private String[] datas = {"选项1", "选项2", "选项3", "选项4", "选项5"};
     @BindView(R.id.time_select_tv)
     TextView timeSelectTv;
-
 
     @BindView(R.id.history_chart)
     LineChart historyChart;
@@ -93,18 +77,19 @@ public class DataFragment extends Fragment {
 
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dataFrag = inflater.inflate(R.layout.fragment_data, container, false);
         ButterKnife.bind(this, dataFrag);
-        storeName.setTypeface(BeeUtil.typefaceLatoRegular);
+
         saleAmount.setTypeface(BeeUtil.typefaceLatoLight);
         initView();
         initTimeChart();
         initHistoryChart();
 
-        swipeRefreshLayout.setOnRefreshListener(new  SwipeRefreshLayout.OnRefreshListener(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
             public void onRefresh() {
@@ -121,7 +106,7 @@ public class DataFragment extends Fragment {
 
     }
 
-    private void initHistoryChart(){
+    private void initHistoryChart() {
         historyChart.setOnChartGestureListener(new OnChartGestureListener() {
             @Override
             public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
@@ -349,7 +334,7 @@ public class DataFragment extends Fragment {
 
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
 
-     //   leftAxis.setAxisLineColor(Color.WHITE);
+        //   leftAxis.setAxisLineColor(Color.WHITE);
 
         leftAxis.setTextColor(Color.TRANSPARENT);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
@@ -383,17 +368,10 @@ public class DataFragment extends Fragment {
         // mChart.invalidate();
     }
 
-    @OnClick({R.id.button_toggle, R.id.button_share, R.id.store_layout, R.id.time_select_tv})
+    @OnClick({R.id.time_select_tv,  R.id.view_record})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button_toggle:
-                BeeUtil.showToast(context, "切换数据");
 
-                //Toast.makeText(getActivity(),"button_toggle",Toast.LENGTH_LONG).show();
-                break;
-            case R.id.button_share:
-                BeeUtil.showToast(context, "分享");
-                break;
             case R.id.time_select_tv:
                 BeeUtil.showToast(context, "时间选择");
                 // TODO: 2016/5/17 构建一个popupwindow的布局
@@ -417,22 +395,18 @@ public class DataFragment extends Fragment {
                 window.update();
                 window.showAsDropDown(timeSelectTv, 0, 20);
                 break;
-
-            case R.id.store_layout:
-                BeeUtil.showToast(context, "弹出店铺选择");
-                Intent intent = new Intent();
+            case R.id.view_record:{
+                Intent it = new Intent(getActivity(), SaleRecordActivity.class);
                 //设置Intent的class属性，跳转到SecondActivity
-                intent.setClass(context, StoreSelectActivity.class);
-
-                //为intent添加额外的信息
-                //intent.putExtra("useName", etx.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(SaleRecordActivity.SELECT_DATE_TIME, new Date());
                 //启动Activity
-                startActivity(intent);
+                it.putExtras(bundle);
+                startActivityForResult(it, RESULT_FIRST_USER);
                 //设置切换动画，从右边进入，左边退出
-                getActivity().overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-                //getActivity().overridePendingTransition( R.anim.,R.anim.trans_left_in);
-                //Toast.makeText(getActivity(),"store_area",Toast.LENGTH_LONG).show();
-                break;
+                // getActivity().overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+            }
+
         }
     }
 
@@ -593,6 +567,7 @@ public class DataFragment extends Fragment {
         m.add("12月");
         return m;
     }
+
     private ArrayList<String> getHistoryXAxisShowLable() {
         ArrayList<String> m = new ArrayList<String>();
         m.add("11.25");
@@ -609,7 +584,5 @@ public class DataFragment extends Fragment {
         m.add("12.6");
         return m;
     }
-
-
 
 }

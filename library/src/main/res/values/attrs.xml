@@ -28,4 +28,14 @@
             <enum name="center" value="2"/>
         </attr>
     </declare-styleable>
+
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="duration" format="integer"/>
+        <attr name="clickToToggle" format="boolean"/>
+        <attr name="initialState" format="enum" >
+            <enum name="expand" value="1" />
+            <enum name="collapse" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

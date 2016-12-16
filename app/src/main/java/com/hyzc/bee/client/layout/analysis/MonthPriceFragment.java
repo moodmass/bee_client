@@ -1,109 +1,157 @@
 package com.hyzc.bee.client.layout.analysis;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.MarkerView;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.hyzc.bee.client.R;
+import com.hyzc.bee.client.layout.data.MyMarkerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MonthPriceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MonthPriceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MonthPriceFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private OnFragmentInteractionListener mListener;
 
-    public MonthPriceFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MonthPriceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MonthPriceFragment newInstance(String param1, String param2) {
-        MonthPriceFragment fragment = new MonthPriceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+public class MonthPriceFragment  extends Fragment{
+    @BindView(R.id.month_line_chart)
+    LineChart weekLineChart;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_month_price, container, false);
+        View weekPriceFrag = inflater.inflate(R.layout.fragment_month_price, null);
+        ButterKnife.bind(this, weekPriceFrag);
+        initLineChart();
+        //initTimeChart();
+        return weekPriceFrag;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    private void initLineChart() {
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        int width = dm.widthPixels;
+
+        weekLineChart.getDescription().setText("单位:元/Kg");
+        //  weekLineChart.getDescription().setEnabled(false);
+        weekLineChart.getDescription().setPosition(width-20,80);
+        weekLineChart.setDrawGridBackground(false);
+        weekLineChart.setScaleXEnabled(true);
+        weekLineChart.setScaleYEnabled(false);
+        weekLineChart.setData(generateLineData());
+        weekLineChart.animateX(500);
+        MarkerView mv = new MyMarkerView(getActivity(), R.layout.custom_marker_view);
+        mv.setChartView(weekLineChart);
+        weekLineChart.setMarker(mv);
+        weekLineChart.getAxisRight().setEnabled(false);
+        weekLineChart.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        XAxis xAxis = weekLineChart.getXAxis();
+        xAxis.setEnabled(true);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // 设置X轴的位置
+        xAxis.setLabelCount(12);
+        xAxis.setGranularity(1f);
+        final ArrayList<String> axisShowLable = getXAxisShowLable();
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                return axisShowLable.get((int) value);
+            }
+        });
+        YAxis leftAxis = weekLineChart.getAxisLeft();
+        leftAxis.setDrawAxisLine(false);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setEnabled(true);
+    }
+
+
+    private ArrayList<String> getXAxisShowLable() {
+        ArrayList<String> m = new ArrayList<String>();
+        for (int i = 0; i < 30; i++) {
+            m.add(String.valueOf(i+1));
         }
+        return m;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    protected LineData generateLineData() {
+
+        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
+
+        ArrayList<Entry> p1 = new ArrayList<Entry>();
+        ArrayList<Entry> p2 = new ArrayList<Entry>();
+        ArrayList<Entry> p3 = new ArrayList<Entry>();
+
+        for (int i = 0; i < 30; i++) {
+            float val = (float) (Math.random() * 1) + 10;
+            p1.add(new Entry(i, val));
+
+            float val1 = (float) (Math.random() * 1) + 10;
+            p2.add(new Entry(i, val1));
+
+            float val2 = (float) (Math.random() * 1) + 10;
+            p3.add(new Entry(i, val2));
         }
+
+
+        LineDataSet ds1 = new LineDataSet(p1, "产品1");
+        LineDataSet ds2 = new LineDataSet(p2, "产品2");
+        LineDataSet ds3 = new LineDataSet(p3, "产品3");
+
+        ds1.setDrawValues(false);
+        ds2.setDrawValues(false);
+        ds3.setDrawValues(false);
+
+        ds1.setLineWidth(2f);
+        ds2.setLineWidth(2f);
+        ds3.setLineWidth(2f);
+
+
+        //ds1.setHighLightColor(color);
+        ds1.setHighlightLineWidth(1f);
+        ds1.enableDashedHighlightLine(10f, 5f, 0f);
+        ds1.setDrawHorizontalHighlightIndicator(false);
+
+        ds2.setHighlightLineWidth(1f);
+        ds2.enableDashedHighlightLine(10f, 5f, 0f);
+        ds2.setDrawHorizontalHighlightIndicator(false);
+
+        ds3.setHighlightLineWidth(1f);
+        ds3.enableDashedHighlightLine(10f, 5f, 0f);
+        ds3.setDrawHorizontalHighlightIndicator(false);
+
+        ds1.setDrawCircles(false);
+        ds2.setDrawCircles(false);
+        ds3.setDrawCircles(false);
+
+        ds1.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+        ds2.setColor(ColorTemplate.COLORFUL_COLORS[1]);
+        ds3.setColor(ColorTemplate.COLORFUL_COLORS[2]);
+        // load DataSets from textfiles in assets folders
+        sets.add(ds1);
+        sets.add(ds2);
+        sets.add(ds3);
+        LineData d = new LineData(sets);
+        //  d.setValueTypeface(tf);
+        return d;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

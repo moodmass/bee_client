@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyzc.bee.client.R;
@@ -60,7 +61,7 @@ class MainListViewAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ListItemView listItemView;
+        ProductRankListItemView listItemView;
         // 初始化item view
         if (convertView == null) {
             // 通过LayoutInflater将xml中定义的视图实例化到一个View中
@@ -68,7 +69,7 @@ class MainListViewAdapter extends BaseAdapter {
                     R.layout.li_product_rank, null);
 
             // 实例化一个封装类ListItemView，并实例化它的两个域
-            listItemView = new ListItemView();
+            listItemView = new ProductRankListItemView();
             listItemView.rank_bg_icon = (MaterialIconView) convertView
                     .findViewById(R.id.rank_bg_icon);
             listItemView.amount_sales_tv = (TextView) convertView
@@ -84,20 +85,24 @@ class MainListViewAdapter extends BaseAdapter {
             convertView.setTag(listItemView);
         } else {
             // 从converView中获取ListItemView对象
-            listItemView = (ListItemView) convertView.getTag();
+            listItemView = (ProductRankListItemView) convertView.getTag();
         }
         // 获取到mList中指定索引位置的资源
         HashMap<String, Object> objectHashMap = listDatas.get(position);
-
+        int rank = Integer.parseInt(objectHashMap.get("rank").toString());
         // 将资源传递给ListItemView的两个域对象
-        if (position == 0) {
-            listItemView.rank_bg_icon.setColor(ContextCompat.getColor(context, R.color.product_rank_first));
-        } else if (position == 1) {
+        if (rank == 1) {
+           listItemView.rank_bg_icon.setColor(ContextCompat.getColor(context, R.color.product_rank_first));
+            listItemView.rank_bg_icon.setVisibility(View.VISIBLE);
+        } else if (rank == 2) {
             listItemView.rank_bg_icon.setColor(ContextCompat.getColor(context, R.color.product_rank_second));
-        } else if (position == 2) {
+            listItemView.rank_bg_icon.setVisibility(View.VISIBLE);
+        } else if (rank ==3) {
             listItemView.rank_bg_icon.setColor(ContextCompat.getColor(context, R.color.product_rank_third));
-        } else if (position == 3||position == 4) {
+            listItemView.rank_bg_icon.setVisibility(View.VISIBLE);
+        } else if (rank == 4||rank == 5) {
             listItemView.rank_bg_icon.setColor(ContextCompat.getColor(context, R.color.product_rank_normal));
+            listItemView.rank_bg_icon.setVisibility(View.VISIBLE);
         }else{
             listItemView.rank_bg_icon.setVisibility(View.INVISIBLE);
         }

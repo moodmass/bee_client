@@ -39,7 +39,7 @@
                         app:materialIconSize="24dp"
                         android:scaleType="center"
                         android:background="@color/transparent"
-                        android:id="@+id/back"
+                        android:id="@+id/go_back"
                         />
                     <TextView
                         android:id="@+id/store_select_title"

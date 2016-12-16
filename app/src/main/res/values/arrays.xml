@@ -6,4 +6,29 @@
         <item>月排行</item>
         <item>季排行</item>
     </string-array>
+
+
+    <string-array name="product_data">
+        <item>香蕉</item>
+        <item>苹果</item>
+        <item>梨</item>
+        <item>李子</item>
+        <item>桃子</item>
+        <item>水蜜桃</item>
+        <item>榴莲</item>
+        <item>茄子</item>
+        <item>枇杷</item>
+        <item>柿子</item>
+        <item>西瓜</item>
+        <item>西红柿</item>
+        <item>核桃</item>
+        <item>花生</item>
+        <item>葡萄干</item>
+        <item>红枣</item>
+        <item>枸杞</item>
+        <item>哈密瓜</item>
+        <item>花生</item>
+        <item>青枣</item>
+    </string-array>
+
 </resources>

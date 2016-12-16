@@ -24,6 +24,10 @@
 
     <color name="theme_color">#26d3f2</color>
 
+    <color name="btn_primary_color">#26d3f2</color>
+    <color name="btn_press_color">#01d8ff</color>
+    <color name="btn_text_color">#fafafa</color>
+
     <color name="time_nav">#26d3f2</color>
 
     <color name="login_button">#2196F3</color>
@@ -38,6 +42,11 @@
     <color name="head_text_color"> #666</color>
 
 
+    <color name="text_color_gray_3">#333</color>
+    <color name="text_color_gray_6">#666</color>
+    <color name="text_color_gray_9">#999</color>
+    <color name="text_color_gray_c">#ccc</color>
+    <color name="text_color_gray_e">#eee</color>
 
     <color name="product_sale_amount">#ff4f4f</color>
     <color name="product_sale_weight">#26d3f2</color>
@@ -49,4 +58,11 @@
     <color name="product_rank_normal">#aab2be</color>
     <color name="product_view_more_bg">#fafafa</color>
     <color name="product_view_more_press">#d7d5d5</color>
+
+
+    <color name="store_count">#8df78d</color>
+    <color name="device_count">#ffc98c</color>
+    <color name="employee_count">#77acf4</color>
+    <color name="product_count">#f37b8f</color>
+
 </resources>
